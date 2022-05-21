@@ -1,0 +1,2 @@
+../Core/Src/bootloader.c:5:6:JumpToAddress	16	static,ignoring_inline_asm
+../Core/Src/bootloader.c:25:6:JumpToApplication	0	static
