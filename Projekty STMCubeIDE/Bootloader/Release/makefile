@@ -78,8 +78,8 @@ all: main-build
 main-build: Bootloader.elf secondary-outputs
 
 # Tool invocations
-Bootloader.elf Bootloader.map: $(OBJS) $(USER_OBJS) D:\STM\ IDE\ Settings\Demo\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "Bootloader.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\STM IDE Settings\Demo\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bootloader.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Bootloader.elf Bootloader.map: $(OBJS) $(USER_OBJS) D:\STM\ IDE\ Settings\Projekt\ Bootloader\STM32_F3_Bootloader\Projekty\ STMCubeIDE\Bootloader\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "Bootloader.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\STM IDE Settings\Projekt Bootloader\STM32_F3_Bootloader\Projekty STMCubeIDE\Bootloader\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bootloader.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

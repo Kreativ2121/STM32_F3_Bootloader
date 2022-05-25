@@ -1,2 +1,6 @@
-../Core/Src/bootloader.c:5:6:JumpToAddress	16	static,ignoring_inline_asm
-../Core/Src/bootloader.c:25:6:JumpToApplication	0	static
+../Core/Src/bootloader.c:6:9:WriteUserApplication	24	static
+../Core/Src/bootloader.c:25:9:EraseUserApplication	24	static
+../Core/Src/bootloader.c:44:6:SendBackup	0	static
+../Core/Src/bootloader.c:54:9:UserApplicationExists	0	static
+../Core/Src/bootloader.c:62:6:JumpToAddress	16	static,ignoring_inline_asm
+../Core/Src/bootloader.c:82:6:JumpToApplication	0	static
