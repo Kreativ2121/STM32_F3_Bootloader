@@ -9,3 +9,14 @@ D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloade
 D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloader.csproj.CoreCompileInputs.cache
 D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloader.exe
 D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloader.pdb
+C:\Users\Kreativ\Desktop\Projekt Bootloader\STM32_F3_Bootloader\C# App\Bootloader\bin\Debug\Bootloader.exe.config
+C:\Users\Kreativ\Desktop\Projekt Bootloader\STM32_F3_Bootloader\C# App\Bootloader\bin\Debug\Bootloader.exe
+C:\Users\Kreativ\Desktop\Projekt Bootloader\STM32_F3_Bootloader\C# App\Bootloader\bin\Debug\Bootloader.pdb
+C:\Users\Kreativ\Desktop\Projekt Bootloader\STM32_F3_Bootloader\C# App\Bootloader\obj\Debug\Bootloader.csproj.AssemblyReference.cache
+C:\Users\Kreativ\Desktop\Projekt Bootloader\STM32_F3_Bootloader\C# App\Bootloader\obj\Debug\Bootloader.csproj.SuggestedBindingRedirects.cache
+C:\Users\Kreativ\Desktop\Projekt Bootloader\STM32_F3_Bootloader\C# App\Bootloader\obj\Debug\Bootloader.Form1.resources
+C:\Users\Kreativ\Desktop\Projekt Bootloader\STM32_F3_Bootloader\C# App\Bootloader\obj\Debug\Bootloader.Properties.Resources.resources
+C:\Users\Kreativ\Desktop\Projekt Bootloader\STM32_F3_Bootloader\C# App\Bootloader\obj\Debug\Bootloader.csproj.GenerateResource.cache
+C:\Users\Kreativ\Desktop\Projekt Bootloader\STM32_F3_Bootloader\C# App\Bootloader\obj\Debug\Bootloader.csproj.CoreCompileInputs.cache
+C:\Users\Kreativ\Desktop\Projekt Bootloader\STM32_F3_Bootloader\C# App\Bootloader\obj\Debug\Bootloader.exe
+C:\Users\Kreativ\Desktop\Projekt Bootloader\STM32_F3_Bootloader\C# App\Bootloader\obj\Debug\Bootloader.pdb
