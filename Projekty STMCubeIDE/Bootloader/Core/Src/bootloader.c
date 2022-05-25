@@ -18,7 +18,7 @@ uint8_t WriteUserApplication(uint32_t* data, uint32_t dataSize, uint32_t offset)
         return 0;
     }
 
-    return 1;
+    return 1;//test
 }
 
 //Usuwanie aplikacji użytkownika z pamięci FLASH
