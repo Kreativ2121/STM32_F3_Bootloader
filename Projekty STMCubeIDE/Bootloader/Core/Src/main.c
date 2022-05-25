@@ -95,11 +95,35 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	  //Przykład: mruganie diodą - różne dla Bootloadera i aplikacji
+//	  for (int i = 0; i < 6; i++) {
+//		  HAL_GPIO_TogglePin (GPIOA, GPIO_PIN_5);
+//		  HAL_Delay (500);   /* Insert delay 100 ms */
+//	  }
+//	  JumpToApplication();
+
+	  //Przykład: Mruganie diodą powoli gdy nie ma wgranej aplikacji oraz kasowanie pamięci aplikacji
+	  if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == GPIO_PIN_RESET) {HAL_Delay(1000); EraseUserApplication();}
+
 	  for (int i = 0; i < 6; i++) {
-		  HAL_GPIO_TogglePin (GPIOA, GPIO_PIN_5);
-		  HAL_Delay (500);   /* Insert delay 100 ms */
+		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+		  HAL_Delay(500);
 	  }
-	  JumpToApplication();
+
+	  HAL_Delay(1000);
+
+	  if (UserApplicationExists()) {
+		  JumpToApplication();
+	  } else {
+		  while (1) {
+			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+			  HAL_Delay(1000);
+		  }
+	  }
+
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -218,6 +242,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_8;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 

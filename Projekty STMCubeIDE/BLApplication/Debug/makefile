@@ -75,8 +75,8 @@ all: main-build
 main-build: BLApplication.elf secondary-outputs
 
 # Tool invocations
-BLApplication.elf BLApplication.map: $(OBJS) $(USER_OBJS) D:\STM\ IDE\ Settings\BLApplication\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "BLApplication.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\STM IDE Settings\BLApplication\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BLApplication.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+BLApplication.elf BLApplication.map: $(OBJS) $(USER_OBJS) D:\STM\ IDE\ Settings\Projekt\ Bootloader\STM32_F3_Bootloader\Projekty\ STMCubeIDE\BLApplication\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "BLApplication.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\STM IDE Settings\Projekt Bootloader\STM32_F3_Bootloader\Projekty STMCubeIDE\BLApplication\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BLApplication.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
