@@ -1,0 +1,11 @@
+D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\bin\Debug\Bootloader.exe.config
+D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\bin\Debug\Bootloader.exe
+D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\bin\Debug\Bootloader.pdb
+D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloader.csproj.AssemblyReference.cache
+D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloader.csproj.SuggestedBindingRedirects.cache
+D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloader.Form1.resources
+D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloader.Properties.Resources.resources
+D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloader.csproj.GenerateResource.cache
+D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloader.csproj.CoreCompileInputs.cache
+D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloader.exe
+D:\ż Robocze\Mida Robotics\Bootloader\Bootloader\Bootloader\obj\Debug\Bootloader.pdb
