@@ -22,7 +22,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "../../Mods/RS485_E/M485_E.h"
-#include "../../Mods/Flash_SSD/MFlash_SSD.h"
+#include "../../Mods/Flash_SSD/MFlash.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -44,7 +44,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
- UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
@@ -128,16 +128,12 @@ int main(void)
 
 	  /*NOTATKI: DO MFLASH ODWOLUJEMY SIE WYLACZNIE DO METOD STATYCZNYCH
 	  PRZEROBIĆ SPOSÓB WYSYLANIA ADRESU DO MFLASH -> są strony, chcemy adresy
-	  dodać funkcję kasującą stronę z flasha -> czy to potrzebne jak możemy kasować całość?
-
-		*/
+	  dodać funkcję kasującą stronę z flasha -> czy to potrzebne jak możemy kasować całość? - tak, potrzebujemy!
+	  przetestować poprawność ODBIERANIA ramek
+	  zająć się wysyłaniem
+	  przemyśleć schemat wysyłania ramek przez apkę C#
+	  */
 	  //Odbieranie wiadomości
-
-
-
-
-
-
 
 
 
@@ -151,10 +147,6 @@ int main(void)
 //			  HAL_Delay(1000);
 //		  }
 //	  }
-
-
-
-
 
     /* USER CODE END WHILE */
 
