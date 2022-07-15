@@ -1,4 +1,3 @@
-"./Core/Src/bootloader.o"
 "./Core/Src/gpio.o"
 "./Core/Src/main.o"
 "./Core/Src/stm32f3xx_hal_msp.o"

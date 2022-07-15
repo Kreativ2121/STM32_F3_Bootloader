@@ -2,7 +2,7 @@
 #define __M485E_RX_CA529_CPP_H
 
 #include "M485_E.h"
-#include "bootloader.h"
+//#include "bootloader.h"
 
 /*########################################################################################*/
 
@@ -42,13 +42,20 @@ void M485E::frameRX_ErasePage( uint8_t pg ){
 	this->Send_IT();
 }// -----------------------------------------------------------
 
+//// ----------------------------------------------------------
+///// JumpToApplication
+//void M485E::frameRX_Jump( ){
+////	JumpToApplication();
+//	gIsToJump = 1;
+//}// -----------------------------------------------------------
+
 // ----------------------------------------------------------
 /// JumpToApplication
-void M485E::frameRX_Jump( ){
-//	JumpToApplication();
+void M485E::frameRX_JumpToAddress( uint8_t HH, uint8_t HL, uint8_t LH, uint8_t LL ){
+	gJumpAddress = HH << 24 | HL << 16 | LH << 8 | LL;
+
 	gIsToJump = 1;
 }// -----------------------------------------------------------
-
 
 
 /// ----------------------------------------------------------

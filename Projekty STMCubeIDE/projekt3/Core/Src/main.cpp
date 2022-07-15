@@ -31,7 +31,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-#define PAGE 253
+//#define PAGE 253
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -48,7 +48,6 @@
 /* USER CODE BEGIN PV */
 uint8_t mTXBuf[2];
 uint8_t mRXBuf[2];
-uint8_t data[] = "HELLO \r\n";
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -60,15 +59,16 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 volatile int gIsToJump=0;
-
-
+volatile uint32_t gJumpAddress=0;
 
 #define APP_ADDRESS (uint32_t)0x08010000
 typedef void (*pFunction)(void);
+
 //Funkcja do przeskoczenia z bootloadera do aplikacji użytkownika
 void JumpToAddress(uint32_t addr) {
-    uint32_t JumpAddress = *(uint32_t *) (addr + 0x0004); //Definitions for jump
-    pFunction Jump = (pFunction) JumpAddress; //Definitions for jump
+    //uint32_t JumpAddress = *(uint32_t *) (addr + 0x0004); //Definitions for jump
+    //pFunction Jump = (pFunction) JumpAddress; //Definitions for jump
+	pFunction Jump = (pFunction) addr; //Definitions for jump
 
     HAL_RCC_DeInit(); //Peripherials deinitialization
     HAL_DeInit();
@@ -102,7 +102,6 @@ void HAL_UART_TxCpltCallback( UART_HandleTypeDef *huart ){
 //----------------------------------------------------------------------------
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart ) {
  // __disable_irq();
-	int a =5;
 	//HAL_UART_Receive_IT( &huart2, mRXBuf, 1 );
   if( huart == g485E.mhUart   )  g485E.onIT_RX();
   //if( huart == gST7580.mhUart )  gST7580.onIT_RX();
@@ -141,10 +140,9 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   g485E.init( &huart2 );
-  int buttonVal = 0;
-  MFlash::unlock();
-  MFlash::erasePage(PAGE);
-  MFlash::lock();
+//  MFlash::unlock();
+//  MFlash::erasePage(PAGE);
+//  MFlash::lock();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -157,7 +155,8 @@ int main(void)
   {
 //	  if(HAL_GPIO_ReadPin (GPIOC, GPIO_PIN_13)==0){
 	  if(gIsToJump!=0){
-		  JumpToApplication();
+		  //JumpToApplication();
+		  JumpToAddress(gJumpAddress);
 	  }
 	  //iPB = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
 	  //int a = 0;

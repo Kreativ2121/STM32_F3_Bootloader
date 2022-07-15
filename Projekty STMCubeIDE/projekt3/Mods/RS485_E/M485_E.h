@@ -104,33 +104,34 @@
     //--------------------------------------------------------------------------
     public: void onReceive( uint8_t aCh );
     
-    public: void frameRX_ID();            /// FRAME ID          0x5B
-    public: void frameRX_Ext();           /// FRAME Ext         0x61
-    public: void frameRX_GetID();         /// FRAME GetID       0x5C
-    public: void frameRX_RegAddr();       /// FRAME Reg_Addr    0xBC
-    public: void frameRX_AskStatus();     /// FRAME AskStatus   0xC3
-    public: void frameRX_Config();        /// FRAME CONFIG      0xBF
-    public: void frameRX_unReg();         /// FRAME UNREG       0x
-    public: void frameRX_getStatus();     /// FRAME getStatus   0x
-    public: void frameRX_setAddr();       /// FRAME setAddr     0x
-    public: void frameRX_setRelays();     /// FRAME setRelays   0x
-    public: void frameRX_setAddrUnreg();  /// FRAME setAddrUnreg   0xC7
-    public: void frameRX_ReceiveMsg();	  /// ADDITIONAL FRAME - STILL NOT USED
-    public: void frameRX_readFlash();
+//    public: void frameRX_ID();            /// FRAME ID          0x5B
+//    public: void frameRX_Ext();           /// FRAME Ext         0x61
+//    public: void frameRX_GetID();         /// FRAME GetID       0x5C
+//    public: void frameRX_RegAddr();       /// FRAME Reg_Addr    0xBC
+//    public: void frameRX_AskStatus();     /// FRAME AskStatus   0xC3
+//    public: void frameRX_Config();        /// FRAME CONFIG      0xBF
+//    public: void frameRX_unReg();         /// FRAME UNREG       0x
+//    public: void frameRX_getStatus();     /// FRAME getStatus   0x
+//    public: void frameRX_setAddr();       /// FRAME setAddr     0x
+//    public: void frameRX_setRelays();     /// FRAME setRelays   0x
+//    public: void frameRX_setAddrUnreg();  /// FRAME setAddrUnreg   0xC7
+//    public: void frameRX_ReceiveMsg();	  /// ADDITIONAL FRAME - STILL NOT USED
+//    public: void frameRX_readFlash();
     //NOWE:
     public: void frameRX_WritePage( uint8_t pg, uint8_t OH, uint8_t OL, uint8_t HH, uint8_t HL, uint8_t LH, uint8_t LL);
     public: void frameRX_ErasePage( uint8_t pg );
-    public: void frameRX_Jump( );
+//    public: void frameRX_Jump( );
+    public: void frameRX_JumpToAddress( uint8_t HH, uint8_t HL, uint8_t LH, uint8_t LL );
 
-    public: void sendTX_STATUS(  uint8_t gateway );
-    public: void sendTX_ADDR(   uint8_t aPrevAddr );
-    public: void sendTX_ID( uint8_t gateway );
-    public: void sendTX_Counter( uint8_t gateway , int counter);
-    public: void sendTX_GetID( uint8_t gateway );
-    public: void sendTX_RegAddr( uint8_t gateway );
-    public: void sendTX_setAddr( uint8_t addr, uint8_t newAddr);
+//    public: void sendTX_STATUS(  uint8_t gateway );
+//    public: void sendTX_ADDR(   uint8_t aPrevAddr );
+//    public: void sendTX_ID( uint8_t gateway );
+//    public: void sendTX_Counter( uint8_t gateway , int counter);
+//    public: void sendTX_GetID( uint8_t gateway );
+//    public: void sendTX_RegAddr( uint8_t gateway );
+//    public: void sendTX_setAddr( uint8_t addr, uint8_t newAddr);
     //NOWE
-    public: void sendTX_React( uint8_t lo, uint8_t hi );//DEBUG
+//    public: void sendTX_React( uint8_t lo, uint8_t hi );//DEBUG
     public: void sendTX_ReadPage( uint8_t pg, uint8_t OH, uint8_t OL);
 
     

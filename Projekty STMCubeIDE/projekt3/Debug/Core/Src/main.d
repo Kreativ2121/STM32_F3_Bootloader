@@ -34,7 +34,7 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
  ../Core/Src/../../Mods/Flash_SSD/MFlash.h \
  ../Core/Src/../../Mods/RS485_E/M485_E_cpp.h \
  ../Core/Src/../../Mods/RS485_E/M485_E.h \
- ../Core/Src/../../Mods/RS485_E/M485_E_cpp_RX.h ../Core/Inc/bootloader.h \
+ ../Core/Src/../../Mods/RS485_E/M485_E_cpp_RX.h \
  ../Core/Src/../../Mods/RS485_E/M485_E_cpp_TX.h
 ../Core/Inc/main.h:
 C:/Users/Kreativ/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.3/Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:
@@ -75,5 +75,4 @@ C:/Users/Kreativ/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.3/Drivers/STM32F3xx_
 ../Core/Src/../../Mods/RS485_E/M485_E_cpp.h:
 ../Core/Src/../../Mods/RS485_E/M485_E.h:
 ../Core/Src/../../Mods/RS485_E/M485_E_cpp_RX.h:
-../Core/Inc/bootloader.h:
 ../Core/Src/../../Mods/RS485_E/M485_E_cpp_TX.h:

@@ -33,26 +33,26 @@ INTTOPC_PROC_LABEL:
 			mRecState += 1;
 			break;}
 
-    	//Funkcje tymczasowe -----------------------------
-		if( aCh == 0xFA){//Test: Wpisz wartość do pamięci
-			uint16_t data = MFlash::read16(253,0);//debug
-			MFlash::unlock();
-			MFlash::write16(253,0,0xFAFB);
-			MFlash::lock();
-			data = MFlash::read16(253,0);//debug
-			break;}
-		if( aCh == 0xFB){//Test: Skasuj wartość z pamięci (skasuj stronę)
-			MFlash::unlock();
-			MFlash::erasePage(253);
-			MFlash::lock();
-			break;}
-		if( aCh == 0xFC){//Test: Odczytaj wartość z pamięci
-			uint16_t data = MFlash::read16(253,0);
-			uint8_t lo=data&(0xff);
-			uint8_t hi=(data>>8) & 0xff;
-			sendTX_React(lo,hi);
-			break;}
-	  // -------------------------------
+//    	//Funkcje tymczasowe -----------------------------
+//		if( aCh == 0xFA){//Test: Wpisz wartość do pamięci
+//			uint16_t data = MFlash::read16(253,0);//debug
+//			MFlash::unlock();
+//			MFlash::write16(253,0,0xFAFB);
+//			MFlash::lock();
+//			data = MFlash::read16(253,0);//debug
+//			break;}
+//		if( aCh == 0xFB){//Test: Skasuj wartość z pamięci (skasuj stronę)
+//			MFlash::unlock();
+//			MFlash::erasePage(253);
+//			MFlash::lock();
+//			break;}
+//		if( aCh == 0xFC){//Test: Odczytaj wartość z pamięci
+//			uint16_t data = MFlash::read16(253,0);
+//			uint8_t lo=data&(0xff);
+//			uint8_t hi=(data>>8) & 0xff;
+//			sendTX_React(lo,hi);
+//			break;}
+//	  // -------------------------------
     case 1:
     	if( aCh == 0x04 ){
     		mRXFrameBuf[1] = aCh;
@@ -68,10 +68,14 @@ INTTOPC_PROC_LABEL:
     	if( aCh == 0x02 ){
 			mRecState = 30;
 			break;}
-    	if( aCh == 0x0F ){
-    		mRecState = 40;
+    	if( aCh == 0x0E ){
+    		mRecState = 50;
     		break;
     	}
+//    	if( aCh == 0x0F ){
+//    		mRecState = 40;
+//    		break;
+//    	}
 
     //ReadPage
     case 10: mRXFrameBuf[2] = aCh; mRecState += 1; break; //page
@@ -103,15 +107,26 @@ INTTOPC_PROC_LABEL:
 	case 36: mRXFrameBuf[8] = aCh; mRecState += 1; break;
 	case 37: mRXFrameBuf[9] = aCh; frameRX_ErasePage( mRXFrameBuf[2] ); mRecState = 0; break;
 
-	//JumpToApplication
-	case 40: mRXFrameBuf[2] = aCh; mRecState += 1; break;
-	case 41: mRXFrameBuf[3] = aCh; mRecState += 1; break;
-	case 42: mRXFrameBuf[4] = aCh; mRecState += 1; break;
-	case 43: mRXFrameBuf[5] = aCh; mRecState += 1; break;
-	case 44: mRXFrameBuf[6] = aCh; mRecState += 1; break;
-	case 45: mRXFrameBuf[7] = aCh; mRecState += 1; break;
-	case 46: mRXFrameBuf[8] = aCh; mRecState += 1; break;
-	case 47: mRXFrameBuf[9] = aCh; frameRX_Jump(); mRecState = 0; break;
+//	//JumpToApplication
+//	case 40: mRXFrameBuf[2] = aCh; mRecState += 1; break;
+//	case 41: mRXFrameBuf[3] = aCh; mRecState += 1; break;
+//	case 42: mRXFrameBuf[4] = aCh; mRecState += 1; break;
+//	case 43: mRXFrameBuf[5] = aCh; mRecState += 1; break;
+//	case 44: mRXFrameBuf[6] = aCh; mRecState += 1; break;
+//	case 45: mRXFrameBuf[7] = aCh; mRecState += 1; break;
+//	case 46: mRXFrameBuf[8] = aCh; mRecState += 1; break;
+//	case 47: mRXFrameBuf[9] = aCh; frameRX_Jump(); mRecState = 0; break;
+
+	//JumpToAddress
+	case 50: mRXFrameBuf[2] = aCh; mRecState += 1; break;
+	case 51: mRXFrameBuf[3] = aCh; mRecState += 1; break;
+	case 52: mRXFrameBuf[4] = aCh; mRecState += 1; break;
+	case 53: mRXFrameBuf[5] = aCh; mRecState += 1; break;
+	case 54: mRXFrameBuf[6] = aCh; mRecState += 1; break;
+	case 55: mRXFrameBuf[7] = aCh; mRecState += 1; break;
+	case 56: mRXFrameBuf[8] = aCh; mRecState += 1; break;
+	case 57: mRXFrameBuf[9] = aCh; frameRX_JumpToAddress( mRXFrameBuf[5], mRXFrameBuf[6], mRXFrameBuf[7], mRXFrameBuf[8] ); mRecState = 0; break;
+
 
       // -------------------------------	
      default: {  
