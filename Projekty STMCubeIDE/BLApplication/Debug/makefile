@@ -67,6 +67,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 BLApplication.list \
 
+OBJCOPY_HEX += \
+BLApplication.hex \
+
 OBJCOPY_BIN += \
 BLApplication.bin \
 
@@ -93,6 +96,11 @@ BLApplication.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+BLApplication.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "BLApplication.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 BLApplication.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "BLApplication.bin"
 	@echo 'Finished building: $@'
@@ -100,10 +108,10 @@ BLApplication.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(RM) BLApplication.bin BLApplication.elf BLApplication.list BLApplication.map default.size.stdout
+	-$(RM) BLApplication.bin BLApplication.elf BLApplication.hex BLApplication.list BLApplication.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

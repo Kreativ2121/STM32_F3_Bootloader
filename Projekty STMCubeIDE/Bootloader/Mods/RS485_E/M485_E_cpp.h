@@ -2,7 +2,7 @@
 #define __M485E_CA529_CPP_H
 
 #include "M485_E.h"
-
+#include "../Flash_SSD/MFlash.h"
 /*########################################################################################*/
 
 
@@ -29,9 +29,32 @@ INTTOPC_PROC_LABEL:
     switch( mRecState ){
       // ------------------------------------------------
 
-    case 0: if( aCh == 0xA5 )
-		mRecState += 1;
-		break;
+    case 0:
+    	if( aCh == 0xA5 ){
+			mRecState += 1;
+			break;}
+		if( aCh == 0xFA){//Test: Wpisz wartość do pamięci
+			MFlash::write16(0,0,0xFAFA);
+			for (int i = 0; i < 6; i++) {
+			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+			  HAL_Delay(500);
+			}
+			break;}
+		if( aCh == 0xFB){//Test: Skasuj wartość z pamięci (skasuj stronę)
+			MFlash::erasePage(0);
+			for (int i = 0; i < 6; i++) {
+			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+			  HAL_Delay(500);
+			}
+			break;}
+		if( aCh == 0xFC){//Test: Odczytaj wartość z pamięci
+			MFlash::read16(0,0);
+			for (int i = 0; i < 6; i++) {
+			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+			  HAL_Delay(500);
+			}
+			sendTX_testAnswer();
+			break;}
 
     case 1:
     	mRXFrameBuf[0] = aCh;  // addr
@@ -85,10 +108,10 @@ INTTOPC_PROC_LABEL:
     		 mRecState+=1; nr=3; break;
     case 33:
     	if(aCh == 0xFF)
-    		frameRX_readFlash();
+    		//frameRX_readFlash();
 
 
-    		MFlash::read16( mPage, mOffset );
+    		//MFlash::read16( mPage, mOffset );
 
     	mRecState = 0;
     	break;

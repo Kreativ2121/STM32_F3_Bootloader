@@ -21,17 +21,17 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "../../Mods/RS485_E/M485_E.h"
-#include "../../Mods/Flash_SSD/MFlash.h"
+#include "usart.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "../../Mods/RS485_E/M485_E.h"
+#include "../../Mods/Flash_SSD/MFlash.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+#define PAGE 253
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -44,8 +44,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-UART_HandleTypeDef huart1;
-UART_HandleTypeDef huart2;
+//UART_HandleTypeDef huart1;
+//UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 uint8_t Received; //Przechowywanie odebranych danych
@@ -53,20 +53,36 @@ uint8_t Received; //Przechowywanie odebranych danych
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_USART2_UART_Init(void);
-static void MX_USART1_UART_Init(void);
+//static void MX_GPIO_Init(void);
+//static void MX_USART2_UART_Init(void);
+//static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-	if(huart == g485E.mhUart) g485E.onIT_RX();
-}
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+//	if(huart == g485E.mhUart) g485E.onIT_RX();
+//}
 
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+//----------------------------------------------------------------------------
+void HAL_UART_TxCpltCallback( UART_HandleTypeDef *huart ){
+  //__disable_irq();
+  if( huart == g485E.mhUart   )  g485E.onIT_TX();
+  //if( huart == gST7580.mhUart )  gST7580.onIT_TX();
+ // __enable_irq();
+ }//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart ) {
+ // __disable_irq();
+  if( huart == g485E.mhUart   )  g485E.onIT_RX();
+  //if( huart == gST7580.mhUart )  gST7580.onIT_RX();
+//  __enable_irq();
+ }//----------------------------------------------------------------------------
 
 /* USER CODE END 0 */
 
@@ -100,53 +116,38 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  g485E.init( &huart1 );
+
+  MFlash::unlock();
+  MFlash::erasePage(PAGE);
+  MFlash::lock();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  uint32_t address = MFlash::calcAddr(PAGE,0);
+	  uint16_t retPage = MFlash::calcPage(address,0);
+	  uint16_t var = MFlash::read16(PAGE,0);
+	  bool buttonVal = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
+	  if( buttonVal ){
+		  if(var == 0xFFFF){
+			  MFlash::unlock();
+			  MFlash::write16(PAGE,0,0xABCD);
+			  MFlash::lock();
+		  }
 
-	  //Przykład: mruganie diodą - różne dla Bootloadera i aplikacji
-//	  for (int i = 0; i < 6; i++) {
-//		  HAL_GPIO_TogglePin (GPIOA, GPIO_PIN_5);
-//		  HAL_Delay (500);   /* Insert delay 100 ms */
-//	  }
-//	  JumpToApplication();
-
-	  //Przykład: Mruganie diodą powoli gdy nie ma wgranej aplikacji oraz kasowanie pamięci aplikacji
-	  //if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == GPIO_PIN_RESET) {HAL_Delay(1000); EraseUserApplication();}
-
-	  for (int i = 0; i < 6; i++) {
-		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-		  HAL_Delay(500);
 	  }
+//	  for (int i = 0; i < 6; i++) {
+//		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+//		  HAL_Delay(500);
+//	  }
+
 
 	  HAL_Delay(1000);
 
-	  //Wysyłanie wiadomości
 
-	  /*NOTATKI: DO MFLASH ODWOLUJEMY SIE WYLACZNIE DO METOD STATYCZNYCH
-	  PRZEROBIĆ SPOSÓB WYSYLANIA ADRESU DO MFLASH -> są strony, chcemy adresy
-	  dodać funkcję kasującą stronę z flasha -> czy to potrzebne jak możemy kasować całość? - tak, potrzebujemy!
-	  przetestować poprawność ODBIERANIA ramek
-	  zająć się wysyłaniem
-	  przemyśleć schemat wysyłania ramek przez apkę C#
-	  */
-	  //Odbieranie wiadomości
-
-
-
-
-	  //Funkcja pokazowa
-//	  if (UserApplicationExists()) {
-//		  JumpToApplication();
-//	  } else {
-//		  while (1) {
-//			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-//			  HAL_Delay(1000);
-//		  }
-//	  }
 
     /* USER CODE END WHILE */
 
@@ -207,111 +208,115 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
-static void MX_USART1_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART1_Init 0 */
-
-  /* USER CODE END USART1_Init 0 */
-
-  /* USER CODE BEGIN USART1_Init 1 */
-
-  /* USER CODE END USART1_Init 1 */
-  huart1.Instance = USART1;
-  huart1.Init.BaudRate = 38400;
-  huart1.Init.WordLength = UART_WORDLENGTH_8B;
-  huart1.Init.StopBits = UART_STOPBITS_1;
-  huart1.Init.Parity = UART_PARITY_NONE;
-  huart1.Init.Mode = UART_MODE_TX_RX;
-  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_UART_Init(&huart1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART1_Init 2 */
-
-  /* USER CODE END USART1_Init 2 */
-
-}
+//static void MX_USART1_UART_Init(void)
+//{
+//
+//  /* USER CODE BEGIN USART1_Init 0 */
+//
+//  /* USER CODE END USART1_Init 0 */
+//
+//  /* USER CODE BEGIN USART1_Init 1 */
+//
+//  /* USER CODE END USART1_Init 1 */
+//  huart1.Instance = USART1;
+//  huart1.Init.BaudRate = 38400;
+//  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+//  huart1.Init.StopBits = UART_STOPBITS_1;
+//  huart1.Init.Parity = UART_PARITY_NONE;
+//  huart1.Init.Mode = UART_MODE_TX_RX;
+//  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+//  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+//  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+//  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+//  if (HAL_UART_Init(&huart1) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN USART1_Init 2 */
+//
+//  /* USER CODE END USART1_Init 2 */
+//
+//}
 
 /**
   * @brief USART2 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_USART2_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART2_Init 0 */
-
-  /* USER CODE END USART2_Init 0 */
-
-  /* USER CODE BEGIN USART2_Init 1 */
-
-  /* USER CODE END USART2_Init 1 */
-  huart2.Instance = USART2;
-  huart2.Init.BaudRate = 38400;
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-  huart2.Init.StopBits = UART_STOPBITS_1;
-  huart2.Init.Parity = UART_PARITY_NONE;
-  huart2.Init.Mode = UART_MODE_TX_RX;
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_UART_Init(&huart2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART2_Init 2 */
-
-  /* USER CODE END USART2_Init 2 */
-
-}
+//static void MX_USART2_UART_Init(void)
+//{
+//
+//  /* USER CODE BEGIN USART2_Init 0 */
+//
+//  /* USER CODE END USART2_Init 0 */
+//
+//  /* USER CODE BEGIN USART2_Init 1 */
+//
+//  /* USER CODE END USART2_Init 1 */
+//  huart2.Instance = USART2;
+//  huart2.Init.BaudRate = 38400;
+//  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+//  huart2.Init.StopBits = UART_STOPBITS_1;
+//  huart2.Init.Parity = UART_PARITY_NONE;
+//  huart2.Init.Mode = UART_MODE_TX_RX;
+//  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+//  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+//  huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+//  huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+//  if (HAL_UART_Init(&huart2) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN USART2_Init 2 */
+//
+//  /* USER CODE END USART2_Init 2 */
+//
+//}
 
 /**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
   */
-static void MX_GPIO_Init(void)
-{
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
-
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOF_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : LD2_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PB8 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-}
+//static void MX_GPIO_Init(void)
+//{
+//  GPIO_InitTypeDef GPIO_InitStruct = {0};
+//
+//  /* GPIO Ports Clock Enable */
+//  __HAL_RCC_GPIOC_CLK_ENABLE();
+//  __HAL_RCC_GPIOF_CLK_ENABLE();
+//  __HAL_RCC_GPIOA_CLK_ENABLE();
+//  __HAL_RCC_GPIOB_CLK_ENABLE();
+//
+//  /*Configure GPIO pin Output Level */
+//  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+//
+//  /*Configure GPIO pin : B1_Pin */
+//  GPIO_InitStruct.Pin = B1_Pin;
+//  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+//
+//  /*Configure GPIO pin : LD2_Pin */
+//  GPIO_InitStruct.Pin = LD2_Pin;
+//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+//  HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+//
+//  /*Configure GPIO pin : PB8 */
+//  GPIO_InitStruct.Pin = GPIO_PIN_8;
+//  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+//
+//}
 
 /* USER CODE BEGIN 4 */
+
+#include "../../Mods/RS485_E/M485_E_cpp.h"
+#include "../../Mods/RS485_E/M485_E_cpp_RX.h"
+#include "../../Mods/RS485_E/M485_E_cpp_TX.h"
 
 /* USER CODE END 4 */
 

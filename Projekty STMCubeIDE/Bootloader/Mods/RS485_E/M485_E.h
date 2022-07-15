@@ -117,7 +117,8 @@
     public: void frameRX_setAddrUnreg();  /// FRAME setAddrUnreg   0xC7
     public: void frameRX_ReceiveMsg();	  /// ADDITIONAL FRAME - STILL NOT USED
     public: void frameRX_readFlash();
-        
+
+    public: void sendTX_testAnswer( );
     public: void sendTX_STATUS(  uint8_t gateway );
     public: void sendTX_ADDR(   uint8_t aPrevAddr );
     public: void sendTX_ID( uint8_t gateway );
