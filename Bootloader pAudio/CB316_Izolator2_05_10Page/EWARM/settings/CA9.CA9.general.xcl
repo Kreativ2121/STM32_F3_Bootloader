@@ -1,0 +1,15 @@
+"C:\Programy\Program\ARM\IAR_8_22_2\arm\bin\armproc.dll" 
+
+"C:\Programy\Program\ARM\IAR_8_22_2\arm\bin\armstlink2.dll" 
+
+"E:\XCh\OneDrive_AC\Projects\ZUT\pAudio\soft\ARM\CA9_Modem\EWARM\CA9\Exe\CA9.out" 
+
+--plugin "C:\Programy\Program\ARM\IAR_8_22_2\arm\bin\armbat.dll" 
+
+--device_macro "C:\Programy\Program\ARM\IAR_8_22_2\arm\config\debugger\ST\STM32F3xx.dmac" 
+
+--flash_loader "C:\Programy\Program\ARM\IAR_8_22_2\arm\config\flashloader\ST\FlashSTM32F33xx6.board" 
+
+
+
+

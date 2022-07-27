@@ -1,0 +1,35 @@
+wersja uniwersalna v0.1 i v0.5
+
+
+
+
+
+--- 2021.07.14 sr ----------------------------
+Uporzadkowana komunikacja UART
+Uporzadkowana komunikacja Modem
+
+
+
+--- 2021.06.21 ni ----------------------------
+Dorobiona ramka config
+Resetwanie Modemu w main
+config potwierdzenie
+M1 odbiera config tez po UART: nie modemie
+
+na podstawie aplikacji: ST7580 GUI
+pierwsze 3 bajty: freq. high
+drugie 3 bajty: freq. low
+
+--- 2021.06.21 ni ----------------------------
+Dodane ramki: STATUS, RELAYS, EXT, ADDR, OLD
+dodane pliki M485_E_RX, M485_E_TX
+
+
+
+--- 2021.03.29 pn ----------------------------
+uporzadkowane, dziala
+
+--- 2021.03.27 so ----------------------------
+RS485 - problem kolejnosci IRQ TX RX
+dodany mechanizm timeout
+dodany mechanizm zabezpieczajacy w IRQ_TX

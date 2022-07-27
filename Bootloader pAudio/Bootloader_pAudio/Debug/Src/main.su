@@ -1,0 +1,17 @@
+../Src/main.cpp:488:1:void __static_initialization_and_destruction_0(int, int)	0	static
+../Src/main.cpp:122:6:void JumpToAddress(uint32_t)	16	static,ignoring_inline_asm
+../Src/main.cpp:158:6:void HAL_UART_TxCpltCallback(UART_HandleTypeDef*)	16	static
+../Src/main.cpp:190:6:void HAL_SYSTICK_Callback()	0	static
+../Src/main.cpp:402:6:void SystemClock_Config()	104	static
+../Src/../Mods/RS485_E/M485_E_cpp.h:124:6:void M485E::onTimer_Frame()	0	static
+../Src/../Mods/RS485_E/M485_E_cpp_RX.h:10:6:void M485E::frameRX_WritePage(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)	24	static
+../Src/../Mods/RS485_E/M485_E_cpp_RX.h:30:6:void M485E::frameRX_ErasePage(uint8_t)	32	static
+../Src/../Mods/RS485_E/M485_E_cpp_RX.h:53:6:void M485E::frameRX_JumpToAddress(uint8_t, uint8_t, uint8_t, uint8_t)	0	static
+../Src/../Mods/RS485_E/M485_E_cpp_TX.h:10:6:void M485E::sendTX_ReadPage(uint8_t, uint8_t, uint8_t)	24	static
+../Src/../Mods/RS485_E/M485_E_cpp.h:14:6:void M485E::onReceive(uint8_t)	24	static
+../Src/main.cpp:166:6:void HAL_UART_RxCpltCallback(UART_HandleTypeDef*)	8	static
+../Src/../Mods/System/MSystem_cpp.h:9:6:void MSystem::onTimer_Main100ms()	0	static
+../Src/../Mods/Flash_SSD/MFlash_SSD_cpp.h:7:11:uint32_t MFlash_SSD::initParams()	32	static
+../Src/main.cpp:234:5:int main()	8	static,ignoring_inline_asm
+../Src/main.cpp:482:6:void Error_Handler()	0	static
+../Src/main.cpp:488:1:cpp)	8	static

@@ -1,0 +1,24 @@
+dodac w main .h +_cpp.h
+
+
+INIT
+
+gFlash_SSD.init(63);	// 63 = page number
+gFlash_SSD.initParams();	
+
+
++ WYPELNIC WLASCIWIE INITPARAMS !!!! w _cpp.h 
+
+
+
+zapis:
+gFlash_SSD.set8( 0, wartosc );  // 0 = addr param 0
+gFlash_SSD.set16( 1, wartosc );
+gFlash_SSD.set32( 3, wartosc );
+gFlash_SSD.flush();
+
+odczyt:
+wartosc = gFlash_SSD.get8( 0 );  // 0 = addr param 0
+
+
+
